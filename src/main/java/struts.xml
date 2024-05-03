@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+
+<!-- 	若 result = success ， 則導向 main.jsp -->
+<struts>
+
+	
+
+
+	<!-- 	自訂錯誤訊息 -->
+	<constant name="struts.custom.i18n.resources" value="globalMessages" />
+
+	<package name="member" namespace="/member" extends="struts-default">
+	
+	
+			<interceptors>
+<!-- 			定義自己的攔截器 -->
+			<interceptor name="initInterceptor" class="interceptor.Initial_Interceptor" />
+    
+<!--     		將自己的攔截器和預設攔截器放在一起，成為一個攔截器集合 -->
+            <interceptor-stack name="myInterceptorStack"> 
+                <interceptor-ref name="defaultStack"></interceptor-ref> 
+            	<interceptor-ref name="initInterceptor"></interceptor-ref> 
+            </interceptor-stack> 
+            
+            
+
+	</interceptors>  
+<!-- 	將預設攔截器改為新的攔截器集合 -->
+	<default-interceptor-ref name="myInterceptorStack"></default-interceptor-ref>
+	
+	
+		<action name="addMem" class="member.action.MemberAction">
+			<result name="success">/main.jsp</result>		
+		</action>
+		
+		<action name="login" class="member.action.MemNoAction">
+			<result name="success">/main.jsp</result>
+			<result name="failure">/login.jsp</result>		
+		</action>
+		
+	</package>
+	
+	<package name="subsys" namespace="/subsys" extends="struts-default">
+		
+		<action name="SubSysAction" class="subsys.controller.SubSysAction">
+			<result name="success">/main.jsp</result>		
+		</action>
+		
+	</package>
+	
+	<package name="workitem" namespace="/workitem" extends="struts-default">
+	
+			<interceptors>
+<!-- 			定義自己的攔截器 -->
+			<interceptor name="memInterceptor" class="interceptor.MemberInSessionInterceptor" />
+			<interceptor name="initInterceptor" class="interceptor.Initial_Interceptor" />
+    
+<!--     		將自己的攔截器和預設攔截器放在一起，成為一個攔截器集合 -->
+            <interceptor-stack name="myInterceptorStack"> 
+                <interceptor-ref name="defaultStack"></interceptor-ref> 
+            	<interceptor-ref name="initInterceptor"></interceptor-ref> 
+                <interceptor-ref name="memInterceptor"></interceptor-ref> 
+                
+            </interceptor-stack> 
+
+			</interceptors>  
+<!-- 	將預設攔截器改為新的攔截器集合 -->
+			<default-interceptor-ref name="myInterceptorStack"></default-interceptor-ref>
+	
+<!-- 		定義一個在 package 作用的全域跳轉結果 -->
+	    <global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+	
+		<action name="addWorkItemAction" class="workitem.controller.WorkItemAction">
+			<result name="success">/main.jsp</result>		
+		</action>
+		
+		<action name="udtWorkItemAction" class="workitem.controller.WorkItemAction">
+			<result name="success">/main.jsp</result>		
+		</action>
+		
+		<action name="delWorkItemAction" class="workitem.controller.WorkItemAction">
+			<result name="success">/main.jsp</result>		
+		</action>
+		
+		<action name="queryWorkItemAction" class="workitem.controller.WorkItemAction">
+			<result name="success">/main.jsp</result>		
+		</action>
+		
+	</package>
+	
+	<package name="plan" namespace="/plan" extends="struts-default">
+	
+		<interceptors>
+<!-- 			定義自己的攔截器 -->
+			<interceptor name="memInterceptor" class="interceptor.MemberInSessionInterceptor" />
+			<interceptor name="initInterceptor" class="interceptor.Initial_Interceptor" />
+    
+<!--     		將自己的攔截器和預設攔截器放在一起，成為一個攔截器集合 -->
+            <interceptor-stack name="myInterceptorStack"> 
+                <interceptor-ref name="defaultStack"></interceptor-ref> 
+            	<interceptor-ref name="initInterceptor"></interceptor-ref> 
+                <interceptor-ref name="memInterceptor"></interceptor-ref> 
+            </interceptor-stack> 
+
+		</interceptors>  
+<!-- 	將預設攔截器改為新的攔截器集合 -->
+		<default-interceptor-ref name="myInterceptorStack"></default-interceptor-ref>
+	
+<!-- 		定義一個在 package 作用的全域跳轉結果 -->
+	    <global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+	
+
+		<action name="PlanAction" class="plan.controller.PlanAction">
+			<result name="success">/main.jsp</result>		
+		</action>
+	</package>
+	
+	
+	
+	<package name="data" namespace="/data" extends="struts-default">
+	
+		<interceptors>
+			<interceptor name="memInterceptor" class="interceptor.MemberInSessionInterceptor" />
+			<interceptor name="initInterceptor" class="interceptor.Initial_Interceptor" />
+    
+            <interceptor-stack name="myInterceptorStack"> 
+                <interceptor-ref name="defaultStack"></interceptor-ref> 
+            	<interceptor-ref name="initInterceptor"></interceptor-ref> 
+                <interceptor-ref name="memInterceptor"></interceptor-ref> 
+            </interceptor-stack> 
+		</interceptors>  
+		
+		<default-interceptor-ref name="myInterceptorStack"></default-interceptor-ref>
+	
+	    <global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+	
+		<action name="DataAction" class="tool.Data_Transfer">
+			<result name="success">/main.jsp</result>		
+		</action>
+	</package>
+	
+	<package name="robot" namespace="/robot" extends="struts-default">
+	
+		<interceptors>
+			<interceptor name="memInterceptor" class="interceptor.MemberInSessionInterceptor" />
+			<interceptor name="initInterceptor" class="interceptor.Initial_Interceptor" />
+    
+            <interceptor-stack name="myInterceptorStack"> 
+                <interceptor-ref name="defaultStack"></interceptor-ref> 
+            	<interceptor-ref name="initInterceptor"></interceptor-ref> 
+                <interceptor-ref name="memInterceptor"></interceptor-ref> 
+            </interceptor-stack> 
+		</interceptors>  
+		
+		<default-interceptor-ref name="myInterceptorStack"></default-interceptor-ref>
+	
+	    <global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+	
+		<action name="RobotAction" class="robot.RobotAction">
+			<result name="success">/main.jsp</result>		
+		</action>
+	</package>
+	
+</struts>

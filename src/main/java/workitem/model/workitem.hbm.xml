@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="workitem.model.WorkItemVO" table="workitem"> 
+		<id name="WorkItem_no" column="PK_WORKITEM">
+			<generator class="native">
+			</generator>
+		</id>
+	
+	<property name="WorkItem_name" column="WORKITEM_NAME"/>
+	<property name="WorkItem_content" column="WORKITEM_CONTENT"/>
+	<property name="WorkItem_hour" column="WORKITEM_HOUR"/>
+	<property name="WorkItem_Date" column="WORKITEM_DATE"/>
+	<property name="WorkItem_subsys" column="WORKITEM_SUBSYS"/>
+	<property name="WorkItem_member" column="WORKITEM_MEMBER"/>
+	
+	
+	<many-to-one name="planVO" class="plan.model.PlanVO" lazy="false">
+			<column name="FK_PLAN"/>
+	</many-to-one>
+	
+	</class>
+</hibernate-mapping>

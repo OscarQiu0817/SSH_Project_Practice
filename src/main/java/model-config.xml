@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/comp/env/jdbc/OscarDB_ForWorkItem" />
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mappingResources">
+			<list>
+				<value>member/model/member.hbm.xml</value>
+				<value>subsys/model/subsys.hbm.xml</value>
+				<value>workitem/model/workitem.hbm.xml</value>
+				<value>plan/model/plan.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"/> 
+	</bean>
+
+	<bean id="memberDAO" class="member.model.MemberHibDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
+
+	<bean id="subsysDAO" class="subsys.model.SubSysHibDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
+	
+	<bean id="workitemDAO" class="workitem.model.WorkItemHibDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
+	
+	<bean id="planDAO" class="plan.model.PlanHibDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert" propagation="REQUIRED"/>
+            <tx:method name="update" propagation="REQUIRED"/>
+            <tx:method name="delete" propagation="REQUIRED"/>
+            <tx:method name="findByPrimaryKey" read-only="true"/>
+            <tx:method name="getAll" read-only="true"/>
+			<tx:method name="login" read-only="true"/>
+            <tx:method name="getQueryList" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="memberDAOPointcut" expression="execution(* member.model.MemberDAO_interface.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="memberDAOPointcut"/>
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="subsysDAOPointcut" expression="execution(* subsys.model.SubSysDAO_interface.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="subsysDAOPointcut"/>
+	</aop:config>
+	
+	<aop:config>
+		<aop:pointcut id="workitemDAOPointcut" expression="execution(* workitem.model.WorkItemDAO_interface.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="workitemDAOPointcut"/>
+	</aop:config>
+	
+	<aop:config>
+		<aop:pointcut id="planDAOPointcut" expression="execution(* plan.model.PlanDAO_interface.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="planDAOPointcut"/>
+	</aop:config>
+
+</beans>

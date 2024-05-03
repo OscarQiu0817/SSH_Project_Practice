@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- JNDI --> 
+        <property name="hibernate.connection.datasource">java:/comp/env/jdbc/OscarDB_ForWorkItem</property>
+        
+        <!-- SQL 方言 -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>  -->
+        
+        <!-- Disable the second-level cache 二級快取 -->
+        <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        
+        <!-- 交易管理類型 以下使用JDBC -->
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        
+        <!-- 要getCurrentSession 就要有這行 -->
+		<property name="hibernate.current_session_context_class">thread</property>
+		
+		<!-- Java 物件 與 表格 的映射檔 -->
+		<mapping resource="member/model/member.hbm.xml"></mapping>
+		<mapping resource="subsys/model/subsys.hbm.xml"></mapping>
+		<mapping resource="plan/model/plan.hbm.xml"></mapping>
+		<mapping resource="workitem/model/workitem.hbm.xml"></mapping>
+		
+    </session-factory>
+</hibernate-configuration>

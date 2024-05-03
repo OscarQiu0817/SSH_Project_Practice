@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="subsys.model.SubSysVO" table="subsys" >
+		
+		<id name="SubSys_no" column="PK_SUBSYS">
+			<generator class="native">
+			</generator>
+		</id>
+		
+		<property name="SubSys_engName" column="SUBSYS_ENG_NAME"/>
+		<property name="SubSys_twName" column="SUBSYS_TW_NAME"/>
+				
+	</class>
+</hibernate-mapping>

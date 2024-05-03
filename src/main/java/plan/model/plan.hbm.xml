@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="plan.model.PlanVO" table="plan" >
+		
+		<id name="plan_no" column="PK_PLAN">
+			<generator class="native">
+			</generator>
+		</id>
+		
+		<property name="plan_year" 		column="plan_year"/>
+		<property name="plan_start_date" 	column="plan_start_date"/>
+		<property name="plan_end_date" 	column="plan_end_date"/>
+		<property name="plan_name" 	column="plan_name"/>
+		
+		<set name="workItems" table="workitem" lazy="false"
+								cascade="all" inverse="true" order-by="WorkItem_no asc">
+			<key><column name="FK_PLAN"/></key>
+			<one-to-many class="workitem.model.WorkItemVO"/>
+		</set>
+
+	</class>
+</hibernate-mapping>

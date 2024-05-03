@@ -1,0 +1,461 @@
+/* 	引入字體 */
+	@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:500&subset=chinese-traditional');
+	* {
+		font-family: 'Noto Sans TC', sans-serif;
+	}
+	
+/* 	側邊攔設定 */
+	.sidebar{
+		height : 100%;
+	}
+	.col-md-2 > .sidebar{
+		text-align:center;
+	}
+		
+	.ul_li ul{
+		padding : 0px;
+		
+	}
+	.ul_li li{
+		font-size:20px;
+		color : white;
+		line-height: 60px;
+		list-style: none;
+	}
+	.ul_li li span{
+		cursor: pointer;
+	}
+	
+/* 	輸入 '計畫' 的欄位表格 */
+	.data_in_table{
+		text-align:center;
+		border-collapse: collapse;
+	}
+	
+	.data_in_table td {
+		padding-right:10px;
+	}
+	
+	.tr_input td{
+		padding-top:5px;
+	}
+	
+/* 	上面那一行工作項目管理 */
+	#mainName{
+		display: inline-block; 
+		padding-top:16px;
+		padding-bottom:10px;
+		font-size:32px;
+	}
+	
+/* 	所有input設定 */
+	input[type=text]{
+		padding : 6px;
+		width:100%;
+		border-radius:5px;
+		border: 1px solid #ccc;
+	}
+	
+/* 	把輸入資料的地方包起來的panel */
+	.panel {
+    	margin-bottom: 10px;
+    }
+
+	.panel-body{
+		background-color: #f5f5f5
+	}
+	
+/* 	顯示 資訊的 div 包含時數計算 與 按鈕 */
+	.info_div{
+		width:100%; 
+	}
+	
+	.info_div div{
+		display:inline-block;
+		padding : 10px;
+		padding-top : 30px;
+	}
+	
+	.data_div{
+
+	}
+	
+	.add_div{
+		float:right;
+	}
+	
+/* 	顯示查詢結果的table */
+	#show_data_table{
+		border-collapse: collapse;
+	}
+	
+	#show_data_table th, #show_data_table td{
+	
+		border: 1px solid #CCC;
+		padding-left : 3px;
+	}
+	
+	#show_data_table td{
+		padding-top : 7px;
+		padding-bottom : 7px;
+		
+	} 
+	
+	#show_data_table tr:nth-child(even) {
+		background: #f2f2f2
+	}
+	#show_data_table tr:nth-child(odd) {
+		background: #FFF
+	}
+	
+/* 	資料最後面的編輯、刪除資料鈕 */
+	.btn_forAction{
+		padding : 1px 6px;
+		border: 2px solid #CCC;
+    	border-radius: 4px;
+    	background: #FFF;
+	}
+	
+/* 	把按鈕包起來的form 設為 inline， 不然預設每個form都佔了一行空間  */
+    .Action_form{
+    	display:inline;
+    }
+    
+/*     下方的換頁鈕 */
+    .page_controller{
+    	position:absolute;
+    	left: 620px;
+    	top : 530px;
+    }
+    
+/*     按下編輯的時候，產生的更新用 input 設定 */
+    .update_td{
+    	display:none;
+    }
+    
+    .update_td input{
+    	width:100%;
+    }
+    
+    .update_tr_color_change{
+    	background:greenyellow  !important; 
+    }
+    
+/*     提示使用者目前操作， 例如 Editing... Deleting ，顯示於 行動按鈕後方 */
+    #describe{
+    	font-size:10px;
+    	color:red;
+    }
+    
+/*     按下新增或修改計畫時，出現的 input 設定 */
+    .work_plan{
+    	padding:3px;
+    	font-size:16px;
+    	width:10% !important;
+    }
+    
+    .planOperation_span{
+    	font-size: 14px;
+    	display:inline-block;
+    }
+    
+     /* 計畫功能鈕的款式*/
+    .plan_btn{
+    	padding:0px ;
+    	text-align:left;
+    }
+    
+    .plan_btn::before{
+    	border: 2px solid #CCC;
+    	border-radius: 4px;
+    	background: #FFF;
+    }
+    
+    .plan_btn:active::before{
+    	background: greenyellow;
+    	color:red;
+    }
+    
+/*    因為 dropright 是 bootStrap 4 才有的，如果想要達到讓下拉式選單出現在按鈕右邊，需要自己更動位置。
+下拉式選單的 ul 是跟著 div跑的 因此在 css 這裡設定 div的絕對位置，讓他移動到切換工作項目的旁邊 */
+    .dropdown_div{
+    	position: absolute;
+	    top:  -13px;
+	    left: 425px;
+    }
+    
+/*     此div 是為了 > 讓照片保持圓形，一般的 img-circle 對於正方形之外的圖形沒辦法完美的轉換    width & padding-top 控制圖片大小 */ 
+/*	   reference : https://codeday.me/bug/20171129/102354.html */
+    div.circle-avatar{
+	    /* make it responsive */
+	    max-width: 100%;
+	    width:70%;
+	    height:auto;
+	    display:block;
+	    /* div height to be the same as width*/
+	    padding-top:70%;
+	    
+	    /* make it a cirkle */
+	    border-radius:50%;
+	    
+	    /* Centering on image`s center*/
+	    background-position-y: center;
+	    background-position-x: center;
+	    background-repeat: no-repeat;
+	    
+	    /* it makes the clue thing, takes smaller dimention to fill div */
+	    background-size: cover;
+	
+	    /* it is optional, for making this div centered in parent*/
+	    margin: 0 auto;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    
+	    cursor:pointer;
+    }
+    
+/*     在 時數 、 日期欄位顯示的 排序小圖 */
+    .sort_img{
+    
+   	    width: 10px;
+	    float: right;
+	    margin: 4px 8px;
+	    cursor: pointer;
+    }
+    
+/*     把整個畫面遮起來的遮罩，搭配下方 loading 圖一起用  */
+    .loadingDiv{
+    	width:100%;
+    	height:100%;
+    	position:absolute;
+    	z-index: 10;
+    	background-color:rgba(100,100,100,0.3);
+    	text-align:center;
+    }
+
+/*     以下為 純 HTML & CSS 的 loading icon */
+/*     參考資料 : https://loading.io/css/ */
+
+.lds-default {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-top:20%;
+}
+.lds-default div {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  animation: lds-default 1.2s linear infinite;
+}
+.lds-default div:nth-child(1) {
+  animation-delay: 0s;
+  top: 37px;
+  left: 66px;
+}
+.lds-default div:nth-child(2) {
+  animation-delay: -0.1s;
+  top: 22px;
+  left: 62px;
+}
+.lds-default div:nth-child(3) {
+  animation-delay: -0.2s;
+  top: 11px;
+  left: 52px;
+}
+.lds-default div:nth-child(4) {
+  animation-delay: -0.3s;
+  top: 7px;
+  left: 37px;
+}
+.lds-default div:nth-child(5) {
+  animation-delay: -0.4s;
+  top: 11px;
+  left: 22px;
+}
+.lds-default div:nth-child(6) {
+  animation-delay: -0.5s;
+  top: 22px;
+  left: 11px;
+}
+.lds-default div:nth-child(7) {
+  animation-delay: -0.6s;
+  top: 37px;
+  left: 7px;
+}
+.lds-default div:nth-child(8) {
+  animation-delay: -0.7s;
+  top: 52px;
+  left: 11px;
+}
+.lds-default div:nth-child(9) {
+  animation-delay: -0.8s;
+  top: 62px;
+  left: 22px;
+}
+.lds-default div:nth-child(10) {
+  animation-delay: -0.9s;
+  top: 66px;
+  left: 37px;
+}
+.lds-default div:nth-child(11) {
+  animation-delay: -1s;
+  top: 62px;
+  left: 52px;
+}
+.lds-default div:nth-child(12) {
+  animation-delay: -1.1s;
+  top: 52px;
+  left: 62px;
+}
+@keyframes lds-default {
+  0%, 20%, 80%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+/*     以上為 純 HTML & CSS 的 loading icon */
+
+
+/*     以下為 機器人相關設定 */
+#messagesArea{
+	width:100%;
+	height:130px;
+	background:wheat;
+	text-align:left; 
+	/* 	可下拉 */
+	overflow:auto;
+
+}
+
+.robotType{
+	margin:3px;
+	border-radius:10px;
+	background-color : #f1f0f0;
+	color:#444950;
+	padding : 3px 10px;
+	/* 	 自適應寬度內容 */
+	width:fit-content;
+	width:-webkit-fit-content;
+	width:-moz-fit-content;
+	/* 	end */
+	
+	/* 	自動斷行 */
+	word-wrap: break-word;
+	max-width:160px;
+}
+
+.userType {
+/* 	子元素 若有 float屬性 */
+	overflow:hidden;
+}
+
+.userMessage{
+	float:right;
+	
+	margin : 3px;
+	border-radius:10px;
+	background-color : #3578e5;
+	color:white;
+	padding : 3px 10px;
+	
+	/* 	 自適應寬度內容 */
+	width:fit-content;
+	width:-webkit-fit-content;
+	width:-moz-fit-content;
+	/* 	end */
+	
+	/* 	自動斷行 */
+	word-wrap: break-word;
+	max-width:160px;
+}
+
+/* custom scrollbar 客製化下拉條 */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+   background: greenyellow; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: yellowgreen; 
+}
+/* custom scrollbar end */
+
+/* wave dot start */
+
+div#wave .dot {
+	display:inline-block;
+	width:3px;
+	height:3px;
+	border-radius:50%;
+	margin-right:3px;
+	background:#888;
+/*  	animation: scale 1.0s infinite ,  wave 1.3s  infinite;   只能擇1 */
+	animation: scale 1.5s -.5s infinite;
+}
+
+div#wave .dot:nth-child(2) {
+/*   animation-delay: -1.1s;   for wave */
+	 animation-delay: -.25s;   /*for scale*/
+}
+
+div#wave .dot:nth-child(3) {
+/*   animation-delay: -0.9s;   for wave */
+ 	 animation-delay: -0s;     /*for scale*/
+}
+
+
+@keyframes wave {
+	0%, 60%, 100% {
+		transform: initial;
+	}
+
+	30% {
+		transform: translateY(-20px);
+	}
+}
+
+@keyframes scale {
+	100% {
+		transform: scale(1);
+	}
+
+	30% {
+		transform: scale(1.3);
+	}
+}
+
+/* wave dot end */
+/*     以上為 機器人相關設定 */
+
+
+/*     以下為 統計圖表設定 */
+#myChart,#myChart2{
+  	  border: 1px solid black;
+}
+
+.modal-dialog{
+	width:800px;
+}
+/*     以上為 統計圖表設定 */
+
+    
